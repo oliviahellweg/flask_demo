@@ -1,31 +1,36 @@
 from flask import Flask
 from flask import render_template, redirect, request, url_for
 
-app = Flask(__name__)
-
-friend_list = [{ } ]
 
 @app.route('/')
 def index():
-    return render_template('index.html', pageTitle='Mike Friends', friends = friend_list)
+    return render_template('home.html')
 
-@app.route('/mike')
-def mike():
-    return render_template('mike.html', pageTitle='About Mike')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-@app.route('/add_friend', methods=['GET', 'POST'])
-def add_friend():
+@app.route('/estimate', methods=['GET', 'POST'])
+def estimate():
     if request.method == 'POST':
         form = request.form
-        fname = form['fname']
-        lname = form['lname']
-        print(fname)
-        print(lname)
-        friend_dict = {"name": fname + " " + lname}
-        friend_list.append(friend_dict)
-        print(friend_list)
-        return redirect(url_for('index'))
-    return redirect(url_for('index'))
+        radius = float (form['radius'])
+        height = float (form['height'])
+        PI=3.14
+        Labor=15
+        Material=25
+
+        TankTop=PI*(radius*radius)
+        TankSides=(PI*(radius*height)*2)
+        TotalAreaIn=TankTop+TankSides
+        TotalSqft=TotalAreaIn/144
+
+        MaterialCost=TotalSqft*Material
+        LaborCost=TotalSqft*Labor
+
+        estimate=MaterialCost+LaborCost
+        return render_template('index.html', data=estimate)
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
