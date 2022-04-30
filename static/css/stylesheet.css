@@ -1,3 +1,20 @@
 body{
-    background-color: azure;
+    background-color: #121212;
+    color: white;
+    opacity: 0.87;
+    margin: 10px;
+    padding: 10px;
 }
+
+h1{
+    color: #ba87f5;
+}
+
+a:link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+input[readonly]
+{background-color: #DCDCDC;}
