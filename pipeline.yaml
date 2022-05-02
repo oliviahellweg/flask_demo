@@ -64,11 +64,11 @@ jobs:
           name: python-app
           path: |
             ./BUILD
-  deploy:
+   deploy:
     runs-on: ubuntu-latest
-    needs: package
+    needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -77,11 +77,11 @@ jobs:
         with:
           name: python-app
           path: .
-
-      - name: "Deploy to Azure Web App"
+          
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: "flask-demo"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4A71BE1C9894E5C840B74AA44F135B1 }}
+          app-name: 'flask-demo-tank'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_613898E8D9C84918BEB3F2A7E2628E15 }}
